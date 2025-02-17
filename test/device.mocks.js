@@ -178,7 +178,7 @@ export class MockCamera {
 
         if (response) this.client.write(response)
 
-        const checkSum = (3 + 1 + functionCode + subFunctionCode + messageID + dataBytes + response.values().reduce((a, c) => a + c, 0)) % 256
+        const checkSum = (3 + 1 + functionCode + subFunctionCode + messageID + dataBytes + [...response.values()].reduce((a, c) => a + c, 0)) % 256
         this.client.write(Buffer.from([checkSum, 0x00]))
         this.client.write(Buffer.from([0x00, 0x00]))
     }

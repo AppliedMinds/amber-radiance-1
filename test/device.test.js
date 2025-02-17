@@ -3,12 +3,8 @@ import { afterEach, beforeEach, describe, it, mock } from 'node:test'
 import { EventEmitter } from 'node:events'
 
 class MockPort extends EventEmitter {
-    open() {
-        this.connection = Promise.withResolvers()
-    }
-    async close(cb) {
-        setTimeout(() => this.connection.resolve(), 20)
-        await this.connection.promise
+    open() {}
+    close(cb) {
         cb()
     }
     write(data) {
